@@ -1,0 +1,11 @@
+@test "Find project version in parent element" {
+  run ./mpv pom-with-version-in-parent.xml
+  [ "$status" -eq 0 ]
+  [ "$output" = "330" ]
+}
+
+@test "Find project version in project" {
+  run ./mpv pom-with-version-in-project.xml
+  [ "$status" -eq 0 ]
+  [ "$output" = "1.0.0" ]
+}

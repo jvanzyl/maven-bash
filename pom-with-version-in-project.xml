@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.starburstdata.presto</groupId>
+        <artifactId>starburst-presto-root</artifactId>
+        <version>330</version>
+    </parent>
+
+    <artifactId>starburst-presto-server</artifactId>
+    <version>1.0.0</version>
+    <packaging>provisio</packaging>
+
+    <properties>
+        <air.main.basedir>${project.parent.basedir}</air.main.basedir>
+        <!-- Launcher properties -->
+        <main-class>com.starburstdata.presto.StarburstPresto</main-class>
+        <process-name>${project.artifactId}</process-name>
+        <air.check.skip-dependency>true</air.check.skip-dependency> <!-- TODO: remove -->
+
+        <docker.file>${basedir}/Dockerfile</docker.file>
+        <docker.registry>harbor.starburstdata.org</docker.registry>
+        <docker.repository>starburstdata</docker.repository>
+        <docker.path>${docker.registry}/${docker.repository}</docker.path>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>ca.vanzyl.maven.plugins</groupId>
+                <artifactId>provisio-maven-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/presto-server-${project.version}</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>dockerfile-maven-plugin</artifactId>
+                        <version>1.4.13</version>
+                        <executions>
+                            <execution>
+                                <id>default</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                    <goal>push</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+                            <dockerfile>${docker.file}</dockerfile>
+                            <repository>${docker.path}</repository>
+                            <tag>latest</tag>
+                            <buildArgs>
+                                <USER>presto</USER>
+                                <UID>1000</UID>
+                                <GROUP>presto</GROUP>
+                                <GID>1000</GID>
+                                <PRESTO_VERSION>${project.version}</PRESTO_VERSION>
+                            </buildArgs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
