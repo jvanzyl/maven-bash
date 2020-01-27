@@ -4,19 +4,19 @@ function mavenProjectVersion() {
   # $1 = pom.xml
 
   # Strip all the whitespace out of the pom.xml
-  pom=`cat $1 | tr -d " \t\n\r"`
+  pom=`cat "$1" | tr -d " \t\n\r"`
 
   # If a parent element exists extract the specified version
-  if grep -q '<parent>' <<< $pom
+  if grep -q '<parent>' <<< "${pom}"
   then
-    parentVersion=`echo $pom | \
+    parentVersion=`echo "${pom}" | \
       sed -n "s@\(.*\)\(<parent>.*</parent>\)\(.*\)@\2@p" | \
       sed -n "s@\(.*<version>\)\(.*\)\(</version>\)\(.*\)@\2@p"`
   fi
 
   # Strip out all blocks that may contain a <version/> tag which will only
   # leave the project version if it's present
-  version=`echo $pom | \
+  version=`echo "${pom}" | \
     sed -e 's@<profiles>.*</profiles>@@' | \
     sed -e 's@<dependencies>.*</dependencies>@@' | \
     sed -e 's@<build>.*</build>@@' | \
@@ -24,7 +24,7 @@ function mavenProjectVersion() {
     sed -n "s@\(.*<version>\)\(.*\)\(.*</version>\)\(.*\)@\2@p"`
 
   # If the project version is present use it, otherwise use the parent version
-  [ ! -z "${version}" ] && echo $version || echo $parentVersion
+  [ ! -z "${version}" ] && echo "${version}" || echo "${parentVersion}"
 }
 
-mavenProjectVersion $1
+mavenProjectVersion "$1"
