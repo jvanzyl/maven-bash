@@ -1,20 +1,31 @@
 # Maven project version for BASH
 
-A simple bash script/function to get the project version from a Maven `pom.xml` file.
+Simple bash functions for Maven:
+
+  - Parse pom.xml to get the project version
+  - Convert coordinate into artifact path
 
 ## Usage
 
-Use the provided `mpv` script:
+Source the `maven.bash` file into your script:
 
 ```
-./mpv pom.xml
+source maven.bash
 
-which will output a single string with the project version
+version=$(mavenProjectVersion "pom-with-version-in-project.xml") 
+echo "version: ${version}"
 
-1.0.0
+path=$(mavenCoordinateToArtifactPath "ca.vanzyl:starburst-concord-agent:tar.gz:1.0.0")
+echo "path: ${path}"
+
 ```
 
-Or you can copy the function into any of your scripts that need to work with Maven `pom.xml` files to extract the version.
+Will yield the output:
+
+```
+version: 1.0.0
+path: ca/vanzyl/starburst-concord-agent/starburst-concord-agent-1.0.0.tar.gz
+```
 
 ## Running Tests
 
@@ -28,6 +39,9 @@ Running the tests should produce something like the following:
 bash-3.2$ ./mpv-tests-runner
  ✓ Find project version in parent element
  ✓ Find project version in project
+ ✓ Convert Maven coordinate to artifact path with g:a:v
+ ✓ Convert Maven coordinate to artifact path with g:a:e:v
+ ✓ Convert Maven coordinate to artifact path with g:a:e:c:v
 
-2 tests, 0 failures
+5 tests, 0 failures
 ```
