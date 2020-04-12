@@ -1,11 +1,31 @@
+load maven
+
 @test "Find project version in parent element" {
-  run ./mpv pom-with-version-in-parent.xml
+  run mavenProjectVersion pom-with-version-in-parent.xml
   [ "$status" -eq 0 ]
   [ "$output" = "330" ]
 }
 
 @test "Find project version in project" {
-  run ./mpv pom-with-version-in-project.xml
+  run mavenProjectVersion pom-with-version-in-project.xml
   [ "$status" -eq 0 ]
   [ "$output" = "1.0.0" ]
+}
+
+@test "Convert Maven coordinate to artifact path with g:a:v" {
+  run mavenCoordinateToArtifactPath "ca.vanzyl:starburst-concord-agent:1.0.0"
+  [ "$status" -eq 0 ]
+  [ "$output" = "ca/vanzyl/starburst-concord-agent/starburst-concord-agent-1.0.0.jar" ]
+}
+
+@test "Convert Maven coordinate to artifact path with g:a:e:v" {
+  run mavenCoordinateToArtifactPath "ca.vanzyl:starburst-concord-agent:tar.gz:1.0.0"
+  [ "$status" -eq 0 ]
+  [ "$output" = "ca/vanzyl/starburst-concord-agent/starburst-concord-agent-1.0.0.tar.gz" ]
+}
+
+@test "Convert Maven coordinate to artifact path with g:a:e:c:v" {
+  run mavenCoordinateToArtifactPath "ca.vanzyl:starburst-concord-agent:tar.gz:bin:1.0.0"
+  [ "$status" -eq 0 ]
+  [ "$output" = "ca/vanzyl/starburst-concord-agent/starburst-concord-agent-1.0.0-bin.tar.gz" ]
 }
