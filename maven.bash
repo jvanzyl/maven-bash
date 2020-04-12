@@ -10,18 +10,18 @@ function mavenCoordinateToArtifactPath() {
   if [ ${#coordinateParts[@]} -eq 3 ]; then
     # <groupId>:<artifactId>:<version>
     version=${coordinateParts[2]}
-    artifactPath="${groupId}/${artifactId}/${artifactId}-${version}.jar"
+    artifactPath="${groupId}/${artifactId}/${version}/${artifactId}-${version}.jar"
   elif [ ${#coordinateParts[@]} -eq 4 ]; then
     # <groupId>:<artifactId>:<extension>:<version>
     version=${coordinateParts[3]}
     extension=${coordinateParts[2]}
-    artifactPath="${groupId}/${artifactId}/${artifactId}-${version}.${extension}"
+    artifactPath="${groupId}/${artifactId}/${version}/${artifactId}-${version}.${extension}"
   elif [ ${#coordinateParts[@]} -eq 5 ]; then
     # <groupId>:<artifactId>:<extension>:<classifier>:<version>
     version=${coordinateParts[4]}
     extension=${coordinateParts[2]}
     classifier=${coordinateParts[3]}
-    artifactPath="${groupId}/${artifactId}/${artifactId}-${version}-${classifier}.${extension}"
+    artifactPath="${groupId}/${artifactId}/${version}/${artifactId}-${version}-${classifier}.${extension}"
   fi
   echo $artifactPath
 }
