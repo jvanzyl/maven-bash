@@ -5,7 +5,7 @@ function mavenCoordinateToArtifactPath() {
   # <groupId>:<artifactId>[:<extension>[:classifier]]:<version>
   # $1 = coordinate
   IFS=':' read -ra coordinateParts <<< "$1"
-  groupId=$(echo ${coordinateParts[0]} | sed 's/\./\//')
+  groupId=$(echo ${coordinateParts[0]} | sed 's/\./\//g')
   artifactId=${coordinateParts[1]}
   if [ ${#coordinateParts[@]} -eq 3 ]; then
     # <groupId>:<artifactId>:<version>
