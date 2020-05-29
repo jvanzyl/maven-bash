@@ -29,3 +29,10 @@ load maven
   [ "$status" -eq 0 ]
   [ "$output" = "ca/vanzyl/starburst-concord-agent/1.0.0/starburst-concord-agent-1.0.0-bin.tar.gz" ]
 }
+
+
+@test "Convert Maven coordinate to Maven metadata.xml path with g:a:e:v " {
+  run mavenMetadataPath "com.starburstdata.presto:starburst-presto-server:tar.gz:334-e-SNAPSHOT"
+  [ "$status" -eq 0 ]
+  [ "$output" = "com/starburstdata/presto/starburst-presto-server/334-e-SNAPSHOT/maven-metadata.xml" ]
+}

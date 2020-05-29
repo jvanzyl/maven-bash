@@ -19,8 +19,7 @@ path=$(mavenCoordinateToArtifactPath "ca.vanzyl:starburst-concord-agent:tar.gz:1
 echo "path: ${path}"
 
 ```
-
-Will yield the output:
+OWill yield the output:
 
 ```
 version: 1.0.0
@@ -29,7 +28,7 @@ path: ca/vanzyl/starburst-concord-agent/starburst-concord-agent-1.0.0.tar.gz
 
 ## Running Tests
 
-If you want run the tests you need to install [BATS](https://github.com/bats-core/bats-core). BATS is a testing tool for BASH scripts/functions.
+If you want run the tests you need to install [BATS](https://github.com/bats-core/bats-core). BATS is a testing tool for BASH scripts/funOtions.
 
 Running the tests should produce something like the following:
 
