@@ -69,6 +69,8 @@ function mavenProjectVersion() {
   # Strip out all blocks that may contain a <version/> tag which will only
   # leave the project version if it's present
   version=`echo "${pom}" | \
+    sed -e 's@<dependencyManagement>.*</dependencyManagement>@@' | \
+    sed -e 's@<properties>.*</properties>@@' | \
     sed -e 's@<profiles>.*</profiles>@@' | \
     sed -e 's@<dependencies>.*</dependencies>@@' | \
     sed -e 's@<build>.*</build>@@' | \
