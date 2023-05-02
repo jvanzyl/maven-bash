@@ -18,6 +18,14 @@ load maven
   [ "$output" = "344-e-SNAPSHOT" ]
 }
 
+@test "Update project version in with complex setup" {
+  cp pom-with-complex-setup.xml pom-to-update.xml
+  run updateMavenProjectVersion pom-to-update.xml XXX
+  run mavenProjectVersion pom-to-update.xml
+  [ "$status" -eq 0 ]
+  [ "$output" = "XXX" ]
+}
+
 @test "Convert Maven coordinate to artifact path with g:a:v" {
   run mavenCoordinateToArtifactPath "ca.vanzyl:starburst-concord-agent:1.0.0"
   [ "$status" -eq 0 ]

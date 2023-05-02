@@ -80,3 +80,9 @@ function mavenProjectVersion() {
   # If the project version is present use it, otherwise use the parent version
   [ ! -z "${version}" ] && echo "${version}" || echo "${parentVersion}"
 }
+
+function updateMavenProjectVersion() {
+  cp $1 $1.backup
+  version=$(mavenProjectVersion $1)
+  cat $1.backup | sed -e "s@${version}@${2}@" > $1
+}

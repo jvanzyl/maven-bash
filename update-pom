@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+source maven.bash
+
+cp pom-with-complex-setup.xml pom-to-update.xml
+updateMavenProjectVersion pom-to-update.xml XXX
