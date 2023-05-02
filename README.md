@@ -19,7 +19,7 @@ path=$(mavenCoordinateToArtifactPath "ca.vanzyl:starburst-concord-agent:tar.gz:1
 echo "path: ${path}"
 
 ```
-OWill yield the output:
+Will yield the output:
 
 ```
 version: 1.0.0
