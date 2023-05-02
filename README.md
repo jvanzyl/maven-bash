@@ -36,11 +36,16 @@ Running the tests should produce something like the following:
 ./mpv-tests-runner
 
 bash-3.2$ ./mpv-tests-runner
+mpv-tests
  ✓ Find project version in parent element
  ✓ Find project version in project
+ ✓ Find project version in with complex setup
+ ✓ Update project version in with complex setup
  ✓ Convert Maven coordinate to artifact path with g:a:v
  ✓ Convert Maven coordinate to artifact path with g:a:e:v
  ✓ Convert Maven coordinate to artifact path with g:a:e:c:v
+ ✓ Convert Maven coordinate to Maven metadata.xml path with g:a:e:v 
 
-5 tests, 0 failures
+8 tests, 0 failures
+
 ```
